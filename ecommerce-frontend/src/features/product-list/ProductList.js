@@ -1,4 +1,4 @@
-import React, { useState, Fragment } from "react";
+import { useState, Fragment } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { increment, incrementAsync, selectCount } from "./productListSlice";
 import { Dialog, Disclosure, Menu, Transition } from "@headlessui/react";
@@ -96,9 +96,10 @@ function classNames(...classes) {
 }
 
 export default function ProductList() {
+  const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
   const count = useSelector(selectCount);
   const dispatch = useDispatch();
-  const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
+  
 
   return (
     <div>
@@ -151,6 +152,8 @@ export default function ProductList() {
 
                       {/* Filters */}
                       <form className="mt-4 border-t border-gray-200">
+                        <h3 className="sr-only">Categories</h3>
+
                         {filters.map((section) => (
                           <Disclosure
                             as="div"
