@@ -1,8 +1,10 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { fetchAllProducts, fetchProductsByFilter } from "./productAPI";
+import { fetchAllProducts, fetchProductsByFilter, fetchBrands, fetchCategories } from "./productAPI";
 
 const initialState = {
   products: [],
+  brands: [],
+  categories: [],
   status: 'idle',
   totalItems: 0
 };
@@ -25,6 +27,22 @@ export const fetchProductsByFilterAsync = createAsyncThunk(
   "product/fetchProductsByFilter",
   async ({filter, sort, pagination}) => {
     const response = await fetchProductsByFilter(filter, sort, pagination);
+    return response;
+  }
+);
+
+export const fetchBrandsAsync = createAsyncThunk(
+  "product/fetchBrands",
+  async () => {
+    const response = await fetchBrands();
+    return response;
+  }
+);
+
+export const fetchCategoriesAsync = createAsyncThunk(
+  "product/fetchCategories",
+  async () => {
+    const response = await fetchCategories();
     return response;
   }
 );
@@ -53,7 +71,7 @@ export const productSlice = createSlice({
       })
       .addCase(fetchAllProductsAsync.fulfilled, (state, action) => {
         state.status = "idle";
-        state.products = state.products.concat(action.payload);
+        state.products = action.payload;
       })
       .addCase(fetchProductsByFilterAsync.pending, (state) => {
         state.status = "loading";
@@ -62,6 +80,20 @@ export const productSlice = createSlice({
         state.status = "idle";
         state.products = action.payload.data.products;
         state.totalItems = action.payload.data.totalItems;
+      })
+      .addCase(fetchBrandsAsync.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(fetchBrandsAsync.fulfilled, (state, action) => {
+        state.status = "idle";
+        state.brands = action.payload;
+      })
+      .addCase(fetchCategoriesAsync.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(fetchCategoriesAsync.fulfilled, (state, action) => {
+        state.status = "idle";
+        state.categories = action.payload;
       });
   },
 });
@@ -73,6 +105,8 @@ export const { increment, decrement, incrementByAmount } = productSlice.actions;
 // in the slice file. For example: `useSelector((state: RootState) => state.counter.value)`
 
 export const selectAllProducts = (state) => state.product.products;
+export const selectCategories = (state) => state.product.categories;
+export const selectBrands = (state) => state.product.brands;
 export const selectTotalItems = (state) => state.product.totalItems;
 
 export default productSlice.reducer;
