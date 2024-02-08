@@ -8,6 +8,15 @@ export function fetchAllProducts() {
   );
 }
 
+export function fetchProductById(id) {
+  return new Promise(async (resolve) => {
+    //TODO: we wil not hardcode the server URL here
+    const response = await fetch("http://localhost:8080/products/"+id);
+    const data = await response.json();
+    resolve(data);
+  });
+}
+
 export function fetchProductsByFilter(filter, sort, pagination) {
   //filter = {"category": ["smartphones", "laptops"]}
   //sort = {_sort: "price", _order: "desc"}
