@@ -1,11 +1,12 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { selectLoggedInUser, createUserAsync } from "../authSlice";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 
 const Signup = () => {
   const dispatch = useDispatch();
+  const user = useSelector(selectLoggedInUser);
   const {
     register,
     handleSubmit,
@@ -16,6 +17,7 @@ const Signup = () => {
 
   return (
     <>
+      {user && <Navigate to="/" replace={true}></Navigate>}
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <img
@@ -33,7 +35,9 @@ const Signup = () => {
             noValidate
             className="space-y-6"
             onSubmit={handleSubmit((data) => {
-              dispatch(createUserAsync({email:data.email, password:data.password}))
+              dispatch(
+                createUserAsync({ email: data.email, password: data.password })
+              );
               console.log(data);
             })}
           >
@@ -108,7 +112,9 @@ const Signup = () => {
                   id="confirmPassword"
                   {...register("confirmPassword", {
                     required: "Confirm Password is required",
-                    validate: (value, formValues) => value === formValues.password || "password does not match",
+                    validate: (value, formValues) =>
+                      value === formValues.password ||
+                      "password does not match",
                   })}
                   type="password"
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
