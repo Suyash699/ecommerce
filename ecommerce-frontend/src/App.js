@@ -62,8 +62,8 @@ function App() {
   const user = useSelector(selectLoggedInUser);
 
   useEffect(() => {
-    if (user && user.id) {
-      dispatch(fetchItemsByUserIdAsync(user.id));
+    if (user && user.data.id) {
+      dispatch(fetchItemsByUserIdAsync(user.data.id));
     }
   }, [dispatch, user]);
 
