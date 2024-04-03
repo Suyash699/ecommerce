@@ -2,57 +2,21 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, Navigate } from "react-router-dom";
 import { deleteItemFromCartAsync, selectItems, updateCartAsync } from "../features/cart/cartSlice";
 import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { selectLoggedInUser, updateUserAsync } from "../features/auth/authSlice";
 
-const products = [
-  {
-    id: 1,
-    name: "Throwback Hip Bag",
-    href: "#",
-    color: "Salmon",
-    price: "$90.00",
-    quantity: 1,
-    imageSrc:
-      "https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-01.jpg",
-    imageAlt:
-      "Salmon orange fabric pouch with match zipper, gray zipper pull, and adjustable hip belt.",
-  },
-  {
-    id: 2,
-    name: "Medium Stuff Satchel",
-    href: "#",
-    color: "Blue",
-    price: "$32.00",
-    quantity: 1,
-    imageSrc:
-      "https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-02.jpg",
-    imageAlt:
-      "Front of satchel with blue canvas body, black straps and handle, drawstring top, and front zipper pouch.",
-  },
-  // More products...
-];
 
-const adresses = [
-  {
-    name: "John Wick",
-    street: "11th Main",
-    city: "Delhi",
-    pincode: 100100,
-    state: "Delhi",
-    phone: 8255544875,
-  },
-  {
-    name: "John Doe",
-    street: "11th Cross",
-    city: "Bangalore",
-    pincode: "400400",
-    state: "Karnataka",
-    phone: 7254755254,
-  },
-];
 
 const CheckoutPage = () => {
 
     const dispatch = useDispatch();
+    const {
+      register,
+      handleSubmit,
+      formState: { errors },
+    } = useForm();
+
+    const user = useSelector(selectLoggedInUser);
     const [open, setOpen] = useState(true);
     const items = useSelector(selectItems);
 
@@ -69,6 +33,7 @@ const CheckoutPage = () => {
     const handleRemove = (e, id) => {
       dispatch(deleteItemFromCartAsync(id));
     };
+    console.log(user);
 
   return (
     <>
@@ -77,7 +42,16 @@ const CheckoutPage = () => {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-5">
           <div className="lg:col-span-3">
-            <form className="bg-white px-5 py-12 mt-12">
+            <form
+              className="bg-white px-5 py-12 mt-12"
+              noValidate
+              onSubmit={handleSubmit((data) => {
+                dispatch(
+                  updateUserAsync({...user, addresses:[...user?.addresses,data]})
+                )
+              })
+              }
+            >
               <div className="space-y-12">
                 <div className="border-b border-gray-900/10 pb-12">
                   <h2 className="text-2xl font-semibold leading-7 text-gray-900">
@@ -88,37 +62,20 @@ const CheckoutPage = () => {
                   </p>
 
                   <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-                    <div className="sm:col-span-3">
+                    <div className="sm:col-span-4">
                       <label
-                        htmlFor="first-name"
+                        htmlFor="name"
                         className="block text-sm font-medium leading-6 text-gray-900"
                       >
-                        First name
+                        Full name
                       </label>
                       <div className="mt-2">
                         <input
                           type="text"
-                          name="first-name"
-                          id="first-name"
-                          autoComplete="given-name"
-                          className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                        />
-                      </div>
-                    </div>
-
-                    <div className="sm:col-span-3">
-                      <label
-                        htmlFor="last-name"
-                        className="block text-sm font-medium leading-6 text-gray-900"
-                      >
-                        Last name
-                      </label>
-                      <div className="mt-2">
-                        <input
-                          type="text"
-                          name="last-name"
-                          id="last-name"
-                          autoComplete="family-name"
+                          {...register("name", {
+                            required: "name is required",
+                          })}
+                          id="name"
                           className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                         />
                       </div>
@@ -134,9 +91,10 @@ const CheckoutPage = () => {
                       <div className="mt-2">
                         <input
                           id="email"
-                          name="email"
+                          {...register("email", {
+                            required: "email is required",
+                          })}
                           type="email"
-                          autoComplete="email"
                           className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                         />
                       </div>
@@ -144,22 +102,20 @@ const CheckoutPage = () => {
 
                     <div className="sm:col-span-3">
                       <label
-                        htmlFor="country"
+                        htmlFor="phone"
                         className="block text-sm font-medium leading-6 text-gray-900"
                       >
-                        Country
+                        Phone
                       </label>
                       <div className="mt-2">
-                        <select
-                          id="country"
-                          name="country"
-                          autoComplete="country-name"
-                          className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
-                        >
-                          <option>United States</option>
-                          <option>Canada</option>
-                          <option>Mexico</option>
-                        </select>
+                        <input
+                          id="phone"
+                          {...register("phone", {
+                            required: "phone is required",
+                          })}
+                          type="tel"
+                          className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                        />
                       </div>
                     </div>
 
@@ -173,9 +129,10 @@ const CheckoutPage = () => {
                       <div className="mt-2">
                         <input
                           type="text"
-                          name="street-address"
-                          id="street-address"
-                          autoComplete="street-address"
+                          {...register("street", {
+                            required: "street is required",
+                          })}
+                          id="street"
                           className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                         />
                       </div>
@@ -191,9 +148,10 @@ const CheckoutPage = () => {
                       <div className="mt-2">
                         <input
                           type="text"
-                          name="city"
+                          {...register("city", {
+                            required: "city is required",
+                          })}
                           id="city"
-                          autoComplete="address-level2"
                           className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                         />
                       </div>
@@ -201,7 +159,7 @@ const CheckoutPage = () => {
 
                     <div className="sm:col-span-2">
                       <label
-                        htmlFor="region"
+                        htmlFor="state"
                         className="block text-sm font-medium leading-6 text-gray-900"
                       >
                         State / Province
@@ -209,9 +167,10 @@ const CheckoutPage = () => {
                       <div className="mt-2">
                         <input
                           type="text"
-                          name="region"
-                          id="region"
-                          autoComplete="address-level1"
+                          {...register("state", {
+                            required: "state is required",
+                          })}
+                          id="state"
                           className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                         />
                       </div>
@@ -219,7 +178,7 @@ const CheckoutPage = () => {
 
                     <div className="sm:col-span-2">
                       <label
-                        htmlFor="postal-code"
+                        htmlFor="pinCode"
                         className="block text-sm font-medium leading-6 text-gray-900"
                       >
                         ZIP / Postal code
@@ -227,9 +186,10 @@ const CheckoutPage = () => {
                       <div className="mt-2">
                         <input
                           type="text"
-                          name="postal-code"
-                          id="postal-code"
-                          autoComplete="postal-code"
+                          {...register("pinCode", {
+                            required: "pinCode is required",
+                          })}
+                          id="pinCode"
                           className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                         />
                       </div>
@@ -261,9 +221,10 @@ const CheckoutPage = () => {
                   </p>
 
                   <ul role="list">
-                    {adresses.map((address) => (
+                  {console.log(user?.addresses)}
+                    {user?.addresses?.map((address) => (
                       <li
-                        key={address.email}
+                        key={address?.email}
                         className="flex justify-between gap-x-6 px-5 py-5 border-solid border-2 border-gray-200"
                       >
                         <div className="flex min-w-0 gap-x-4">
@@ -274,23 +235,23 @@ const CheckoutPage = () => {
                           />
                           <div className="min-w-0 flex-auto">
                             <p className="text-sm font-semibold leading-6 text-gray-900">
-                              {address.name}
+                              {address?.name}
                             </p>
                             <p className="mt-1 truncate text-xs leading-5 text-gray-500">
-                              {address.street}
+                              {address?.street}
                             </p>
                             <p className="mt-1 truncate text-xs leading-5 text-gray-500">
-                              {address.pincode}
+                              {address?.pinCode}
                             </p>
                           </div>
                         </div>
 
                         <div className="hidden shrink-0 sm:flex sm:flex-col sm:items-end">
                           <p className="text-sm leading-6 text-gray-900">
-                            Phone: {address.phone}
+                            Phone: {address?.phone}
                           </p>
                           <p className="text-sm leading-6 text-gray-500">
-                            {address.city}
+                            {address?.city}
                           </p>
                         </div>
                       </li>
