@@ -2014,7 +2014,17 @@
       "email": "naina23899@gmail.com",
       "password": "Suyash@97",
       "confirmPassword": "Suyash@97",
-      "addresses": [],
+      "addresses": [
+        {
+          "name": "Naina",
+          "email": "suyash.tcet@gmail.com",
+          "phone": "82546675",
+          "street": "absds",
+          "city": "Mumbai",
+          "state": "dfsdf",
+          "pinCode": "400006"
+        }
+      ],
       "id": 1
     },
     {
@@ -2088,5 +2098,8 @@
       "user": 1,
       "id": 10
     }
+  ],
+  "orders": [
+    
   ]
 }

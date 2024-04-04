@@ -13,6 +13,7 @@ const CheckoutPage = () => {
     const {
       register,
       handleSubmit,
+      reset,
       formState: { errors },
     } = useForm();
 
@@ -26,6 +27,9 @@ const CheckoutPage = () => {
     );
     const totalItems = items.reduce((total, item) => item.quantity + total, 0);
 
+    const [selectedAddress, setSelectedAddress] = useState(null);
+    const [paymentMethod, setPaymentMethod] = useState('cash');
+
     const handleQuantity = (e, item) => {
       dispatch(updateCartAsync({ ...item, quantity: +e.target.value }));
     };
@@ -33,7 +37,20 @@ const CheckoutPage = () => {
     const handleRemove = (e, id) => {
       dispatch(deleteItemFromCartAsync(id));
     };
-    console.log(user);
+
+    const handleAddress = (e)=>{
+      console.log(e.target.value);
+      setSelectedAddress(user.addresses[e.target.value]);
+    }
+    
+    const handlePayment = (e) => {
+      console.log(e.target.value);
+      setPaymentMethod(e.target.value);
+    };
+
+    const handleOrder = (e) => {
+      setPaymentMethod(e.target.value);
+    };
 
   return (
     <>
@@ -47,10 +64,13 @@ const CheckoutPage = () => {
               noValidate
               onSubmit={handleSubmit((data) => {
                 dispatch(
-                  updateUserAsync({...user, addresses:[...user?.addresses,data]})
-                )
-              })
-              }
+                  updateUserAsync({
+                    ...user,
+                    addresses: [...user?.addresses, data],
+                  })
+                );
+                reset();
+              })}
             >
               <div className="space-y-12">
                 <div className="border-b border-gray-900/10 pb-12">
@@ -221,16 +241,17 @@ const CheckoutPage = () => {
                   </p>
 
                   <ul role="list">
-                  {console.log(user?.addresses)}
-                    {user?.addresses?.map((address) => (
+                    {user?.addresses?.map((address, index) => (
                       <li
-                        key={address?.email}
+                        key={index}
                         className="flex justify-between gap-x-6 px-5 py-5 border-solid border-2 border-gray-200"
                       >
                         <div className="flex min-w-0 gap-x-4">
                           <input
+                            onChange={handleAddress}
                             name="address"
                             type="radio"
+                            value={index}
                             className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
                           />
                           <div className="min-w-0 flex-auto">
@@ -271,6 +292,9 @@ const CheckoutPage = () => {
                           <input
                             id="cash"
                             name="payments"
+                            onChange={handlePayment}
+                            value="cash"
+                            checked={paymentMethod === "cash"}
                             type="radio"
                             className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
                           />
@@ -285,6 +309,9 @@ const CheckoutPage = () => {
                           <input
                             id="card"
                             name="payments"
+                            onChange={handlePayment}
+                            value="card"
+                            checked={paymentMethod === "card"}
                             type="radio"
                             className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
                           />
@@ -383,12 +410,12 @@ const CheckoutPage = () => {
                   Shipping and taxes calculated at checkout.
                 </p>
                 <div className="mt-6">
-                  <Link
-                    to="/checkout"
+                  <div
+                    onClick={handleOrder}
                     className="flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700"
                   >
-                    Checkout
-                  </Link>
+                    Order Now
+                  </div>
                 </div>
                 <div className="mt-6 flex justify-center text-center text-sm text-gray-500">
                   <p>

@@ -34,7 +34,7 @@ export const updateUserAsync = createAsyncThunk(
   "user/updateUser",
   async (update) => {
     const response = await updateUser(update);
-    console.log(response);
+    // console.log(response);
     return response;
   }
 );
@@ -80,11 +80,13 @@ export const counterSlice = createSlice({
       .addCase(updateUserAsync.fulfilled, (state, action) => {
         state.status = "idle";
         state.loggedInUser = action.payload;
+        // console.log(state.loggedInUser);
       });
   },
 });
 
-export const selectLoggedInUser = (state)=>state.auth.loggedInUser?.data;
+export const selectLoggedInUser = (state) =>
+  state.auth.loggedInUser?.data || state.auth.loggedInUser;
 export const selectError =  (state)=>state.auth.error;
 export const { increment } = counterSlice.actions;
 

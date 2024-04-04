@@ -30,7 +30,7 @@ export function checkUser(loginInfo) {
 }
 
 export function updateUser(update) {
-  console.log(update)
+  // console.log(update)
   return new Promise(async (resolve) => {
     const response = await fetch("http://localhost:8080/users/"+update?.id, {
       method: "PATCH",
@@ -38,7 +38,7 @@ export function updateUser(update) {
       headers: { "content-type": "application/json" },
     });
     const data = await response.json();
-    console.log(data);
+    // console.log(data);
     resolve(data);
   });
 }
