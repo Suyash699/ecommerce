@@ -4,6 +4,7 @@ import { deleteItemFromCartAsync, selectItems, updateCartAsync } from "../featur
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { selectLoggedInUser, updateUserAsync } from "../features/auth/authSlice";
+import { createOrderAsync } from "../features/order/orderSlice";
 
 
 
@@ -49,7 +50,10 @@ const CheckoutPage = () => {
     };
 
     const handleOrder = (e) => {
-      setPaymentMethod(e.target.value);
+      const order = {items, totalAmount, totalItems, user, paymentMethod, selectedAddress};
+      dispatch(
+        createOrderAsync(order)
+      )
     };
 
   return (
