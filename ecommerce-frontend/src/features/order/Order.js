@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
-  increment,
-  incrementAsync,
-  selectCount,
+  increment
 } from './orderSlice';
 
 export function Counter() {
@@ -12,8 +10,6 @@ export function Counter() {
 
   return (
     <div>
-      <div>
-      </div>
     </div>
   );
 }

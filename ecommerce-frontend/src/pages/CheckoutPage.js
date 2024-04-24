@@ -54,6 +54,9 @@ const CheckoutPage = () => {
       dispatch(
         createOrderAsync(order)
       )
+      //TODO: Redirect to order success page
+      //TODO: Clear cart after order
+      //TODO: on server change the stock number of items.
     };
 
   return (
@@ -416,7 +419,7 @@ const CheckoutPage = () => {
                 <div className="mt-6">
                   <div
                     onClick={handleOrder}
-                    className="flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700"
+                    className="flex items-center cursor-pointer justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700"
                   >
                     Order Now
                   </div>
