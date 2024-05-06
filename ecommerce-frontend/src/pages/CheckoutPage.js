@@ -1,68 +1,82 @@
 import { useDispatch, useSelector } from "react-redux";
 import { Link, Navigate } from "react-router-dom";
-import { deleteItemFromCartAsync, selectItems, updateCartAsync } from "../features/cart/cartSlice";
+import {
+  deleteItemFromCartAsync,
+  selectItems,
+  updateCartAsync,
+} from "../features/cart/cartSlice";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { selectLoggedInUser, updateUserAsync } from "../features/auth/authSlice";
-import { createOrderAsync } from "../features/order/orderSlice";
-
-
+import {
+  selectLoggedInUser,
+  updateUserAsync,
+} from "../features/auth/authSlice";
+import { createOrderAsync, selectCurrentOrder } from "../features/order/orderSlice";
 
 const CheckoutPage = () => {
+  const dispatch = useDispatch();
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm();
 
-    const dispatch = useDispatch();
-    const {
-      register,
-      handleSubmit,
-      reset,
-      formState: { errors },
-    } = useForm();
+  const user = useSelector(selectLoggedInUser);
+  const [open, setOpen] = useState(true);
+  const items = useSelector(selectItems);
+  const currentOrder = useSelector(selectCurrentOrder);
+  const totalAmount = items.reduce(
+    (amount, item) => item.price * item.quantity + amount,
+    0
+  );
+  const totalItems = items.reduce((total, item) => item.quantity + total, 0);
 
-    const user = useSelector(selectLoggedInUser);
-    const [open, setOpen] = useState(true);
-    const items = useSelector(selectItems);
+  const [selectedAddress, setSelectedAddress] = useState(null);
+  const [paymentMethod, setPaymentMethod] = useState("cash");
 
-    const totalAmount = items.reduce(
-      (amount, item) => item.price * item.quantity + amount,
-      0
-    );
-    const totalItems = items.reduce((total, item) => item.quantity + total, 0);
+  const handleQuantity = (e, item) => {
+    dispatch(updateCartAsync({ ...item, quantity: +e.target.value }));
+  };
 
-    const [selectedAddress, setSelectedAddress] = useState(null);
-    const [paymentMethod, setPaymentMethod] = useState('cash');
+  const handleRemove = (e, id) => {
+    dispatch(deleteItemFromCartAsync(id));
+  };
 
-    const handleQuantity = (e, item) => {
-      dispatch(updateCartAsync({ ...item, quantity: +e.target.value }));
+  const handleAddress = (e) => {
+    console.log(e.target.value);
+    setSelectedAddress(user.addresses[e.target.value]);
+  };
+
+  const handlePayment = (e) => {
+    console.log(e.target.value);
+    setPaymentMethod(e.target.value);
+  };
+
+  const handleOrder = (e) => {
+    if(selectedAddress && paymentMethod){
+    const order = {
+      items,
+      totalAmount,
+      totalItems,
+      user,
+      paymentMethod,
+      selectedAddress,
+      status: "pending",
     };
-
-    const handleRemove = (e, id) => {
-      dispatch(deleteItemFromCartAsync(id));
-    };
-
-    const handleAddress = (e)=>{
-      console.log(e.target.value);
-      setSelectedAddress(user.addresses[e.target.value]);
-    }
-    
-    const handlePayment = (e) => {
-      console.log(e.target.value);
-      setPaymentMethod(e.target.value);
-    };
-
-    const handleOrder = (e) => {
-      const order = {items, totalAmount, totalItems, user, paymentMethod, selectedAddress};
-      dispatch(
-        createOrderAsync(order)
-      )
-      //TODO: Redirect to order success page
-      //TODO: Clear cart after order
-      //TODO: on server change the stock number of items.
-    };
+    dispatch(createOrderAsync(order));
+  } else{
+    alert('Enter Address & Payment Method')
+  }
+    //TODO: Redirect to order success page
+    //TODO: Clear cart after order
+    //TODO: on server change the stock number of items.
+  };
 
   return (
     <>
       {!items.length && <Navigate to="/" replace={true}></Navigate>}
-
+      {currentOrder && <Navigate to={`/order-success/${currentOrder.id}`} replace={true}></Navigate>}
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-5">
           <div className="lg:col-span-3">
