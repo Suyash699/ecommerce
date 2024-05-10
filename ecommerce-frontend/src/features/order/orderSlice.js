@@ -26,8 +26,8 @@ export const orderSlice = createSlice({
   initialState,
   
   reducers: {
-    increment: (state) => {
-      state.value += 1;
+    resetOrder: (state)=>{
+      state.currentOrder = null;
     },
   },
   extraReducers: (builder) => {
@@ -43,7 +43,7 @@ export const orderSlice = createSlice({
   },
 });
 
-export const { increment } = orderSlice.actions;
+export const { resetOrder } = orderSlice.actions;
 
 export const selectCurrentOrder = (state) => state.order.currentOrder;
 
