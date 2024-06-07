@@ -20,8 +20,8 @@ const navigation = [
   { name: "Team", href: "#", current: false },
 ];
 const userNavigation = [
-  { name: "Your Profile", link: "" },
-  { name: "Settings", link: "#" },
+  { name: "Your Profile", link: "/profile" },
+  { name: "Settings", link: "/" },
   { name: "Sign out", link: "/login" },
 ];
 
@@ -30,7 +30,6 @@ function classNames(...classes) {
 }
 
 function Navbar({ children }) {
-
   const items = useSelector(selectItems);
   return (
     <>
@@ -84,9 +83,11 @@ function Navbar({ children }) {
                           />
                         </button>
                       </Link>
-                      {items.length>0 && <span className="inline-flex items-center rounded-md bg-red-50 mb-7 -ml-3 px-2 py-1 text-xs font-medium text-red-700 ring-1 ring-inset z-40 ring-red-600/10">
-                        {items.length}
-                      </span>}
+                      {items.length > 0 && (
+                        <span className="inline-flex items-center rounded-md bg-red-50 mb-7 -ml-3 px-2 py-1 text-xs font-medium text-red-700 ring-1 ring-inset z-40 ring-red-600/10">
+                          {items.length}
+                        </span>
+                      )}
 
                       {/* Profile dropdown */}
                       <Menu as="div" className="relative ml-3">
@@ -199,9 +200,11 @@ function Navbar({ children }) {
                         aria-hidden="true"
                       />
                     </button>
-                    {items.length>0 && <span className="inline-flex items-center rounded-md bg-red-50 mb-7 -ml-3 px-2 py-1 text-xs font-medium text-red-700 ring-1 ring-inset z-40 ring-red-600/10">
-                      {items.length}
-                    </span>}
+                    {items.length > 0 && (
+                      <span className="inline-flex items-center rounded-md bg-red-50 mb-7 -ml-3 px-2 py-1 text-xs font-medium text-red-700 ring-1 ring-inset z-40 ring-red-600/10">
+                        {items.length}
+                      </span>
+                    )}
                   </div>
                   <div className="mt-3 space-y-1 px-2">
                     {userNavigation.map((item) => (

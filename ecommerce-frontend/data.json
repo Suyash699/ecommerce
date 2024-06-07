@@ -2133,6 +2133,226 @@
       },
       "status": "pending",
       "id": 1
+    },
+    {
+      "items": [
+        {
+          "title": "iPhone X",
+          "description": "SIM-Free, Model A19211 6.5-inch Super Retina HD display with OLED technology A12 Bionic chip with ...",
+          "price": 899,
+          "discountPercentage": 17.94,
+          "rating": 4.44,
+          "stock": 34,
+          "brand": "Apple",
+          "category": "smartphones",
+          "thumbnail": "https://cdn.dummyjson.com/product-images/2/thumbnail.jpg",
+          "images": [
+            "https://cdn.dummyjson.com/product-images/2/1.jpg",
+            "https://cdn.dummyjson.com/product-images/2/2.jpg",
+            "https://cdn.dummyjson.com/product-images/2/3.jpg",
+            "https://cdn.dummyjson.com/product-images/2/thumbnail.jpg"
+          ],
+          "quantity": 1,
+          "user": 1,
+          "id": 1
+        }
+      ],
+      "totalAmount": 899,
+      "totalItems": 1,
+      "user": {
+        "email": "naina23899@gmail.com",
+        "password": "Suyash@97",
+        "confirmPassword": "Suyash@97",
+        "addresses": [
+          {
+            "name": "Naina",
+            "email": "suyash.tcet@gmail.com",
+            "phone": "82546675",
+            "street": "absds",
+            "city": "Mumbai",
+            "state": "dfsdf",
+            "pinCode": "400006"
+          }
+        ],
+        "id": 1
+      },
+      "paymentMethod": "cash",
+      "selectedAddress": {
+        "name": "Naina",
+        "email": "suyash.tcet@gmail.com",
+        "phone": "82546675",
+        "street": "absds",
+        "city": "Mumbai",
+        "state": "dfsdf",
+        "pinCode": "400006"
+      },
+      "status": "pending",
+      "id": 2
+    },
+    {
+      "items": [
+        {
+          "title": "iPhone X",
+          "description": "SIM-Free, Model A19211 6.5-inch Super Retina HD display with OLED technology A12 Bionic chip with ...",
+          "price": 899,
+          "discountPercentage": 17.94,
+          "rating": 4.44,
+          "stock": 34,
+          "brand": "Apple",
+          "category": "smartphones",
+          "thumbnail": "https://cdn.dummyjson.com/product-images/2/thumbnail.jpg",
+          "images": [
+            "https://cdn.dummyjson.com/product-images/2/1.jpg",
+            "https://cdn.dummyjson.com/product-images/2/2.jpg",
+            "https://cdn.dummyjson.com/product-images/2/3.jpg",
+            "https://cdn.dummyjson.com/product-images/2/thumbnail.jpg"
+          ],
+          "quantity": 1,
+          "user": 1,
+          "id": 1
+        }
+      ],
+      "totalAmount": 899,
+      "totalItems": 1,
+      "user": {
+        "email": "naina23899@gmail.com",
+        "password": "Suyash@97",
+        "confirmPassword": "Suyash@97",
+        "addresses": [
+          {
+            "name": "Naina",
+            "email": "suyash.tcet@gmail.com",
+            "phone": "82546675",
+            "street": "absds",
+            "city": "Mumbai",
+            "state": "dfsdf",
+            "pinCode": "400006"
+          }
+        ],
+        "id": 1
+      },
+      "paymentMethod": "cash",
+      "selectedAddress": {
+        "name": "Naina",
+        "email": "suyash.tcet@gmail.com",
+        "phone": "82546675",
+        "street": "absds",
+        "city": "Mumbai",
+        "state": "dfsdf",
+        "pinCode": "400006"
+      },
+      "status": "pending",
+      "id": 3
+    },
+    {
+      "items": [
+        {
+          "title": "iPhone X",
+          "description": "SIM-Free, Model A19211 6.5-inch Super Retina HD display with OLED technology A12 Bionic chip with ...",
+          "price": 899,
+          "discountPercentage": 17.94,
+          "rating": 4.44,
+          "stock": 34,
+          "brand": "Apple",
+          "category": "smartphones",
+          "thumbnail": "https://cdn.dummyjson.com/product-images/2/thumbnail.jpg",
+          "images": [
+            "https://cdn.dummyjson.com/product-images/2/1.jpg",
+            "https://cdn.dummyjson.com/product-images/2/2.jpg",
+            "https://cdn.dummyjson.com/product-images/2/3.jpg",
+            "https://cdn.dummyjson.com/product-images/2/thumbnail.jpg"
+          ],
+          "quantity": 1,
+          "user": 1,
+          "id": 1
+        }
+      ],
+      "totalAmount": 899,
+      "totalItems": 1,
+      "user": {
+        "email": "naina23899@gmail.com",
+        "password": "Suyash@97",
+        "confirmPassword": "Suyash@97",
+        "addresses": [
+          {
+            "name": "Naina",
+            "email": "suyash.tcet@gmail.com",
+            "phone": "82546675",
+            "street": "absds",
+            "city": "Mumbai",
+            "state": "dfsdf",
+            "pinCode": "400006"
+          }
+        ],
+        "id": 1
+      },
+      "paymentMethod": "cash",
+      "selectedAddress": {
+        "name": "Naina",
+        "email": "suyash.tcet@gmail.com",
+        "phone": "82546675",
+        "street": "absds",
+        "city": "Mumbai",
+        "state": "dfsdf",
+        "pinCode": "400006"
+      },
+      "status": "pending",
+      "id": 4
+    },
+    {
+      "items": [
+        {
+          "title": "iPhone X",
+          "description": "SIM-Free, Model A19211 6.5-inch Super Retina HD display with OLED technology A12 Bionic chip with ...",
+          "price": 899,
+          "discountPercentage": 17.94,
+          "rating": 4.44,
+          "stock": 34,
+          "brand": "Apple",
+          "category": "smartphones",
+          "thumbnail": "https://cdn.dummyjson.com/product-images/2/thumbnail.jpg",
+          "images": [
+            "https://cdn.dummyjson.com/product-images/2/1.jpg",
+            "https://cdn.dummyjson.com/product-images/2/2.jpg",
+            "https://cdn.dummyjson.com/product-images/2/3.jpg",
+            "https://cdn.dummyjson.com/product-images/2/thumbnail.jpg"
+          ],
+          "quantity": 1,
+          "user": 1,
+          "id": 1
+        }
+      ],
+      "totalAmount": 899,
+      "totalItems": 1,
+      "user": {
+        "email": "naina23899@gmail.com",
+        "password": "Suyash@97",
+        "confirmPassword": "Suyash@97",
+        "addresses": [
+          {
+            "name": "Naina",
+            "email": "suyash.tcet@gmail.com",
+            "phone": "82546675",
+            "street": "absds",
+            "city": "Mumbai",
+            "state": "dfsdf",
+            "pinCode": "400006"
+          }
+        ],
+        "id": 1
+      },
+      "paymentMethod": "cash",
+      "selectedAddress": {
+        "name": "Naina",
+        "email": "suyash.tcet@gmail.com",
+        "phone": "82546675",
+        "street": "absds",
+        "city": "Mumbai",
+        "state": "dfsdf",
+        "pinCode": "400006"
+      },
+      "status": "pending",
+      "id": 5
     }
   ]
 }
