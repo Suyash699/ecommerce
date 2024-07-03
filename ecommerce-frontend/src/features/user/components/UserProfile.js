@@ -1,13 +1,10 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
-  increment,
-  incrementAsync,
-  selectCount,
-} from './userSlice';
+  
+} from '../userSlice';
 
-export function Counter() {
-  const count = useSelector(selectCount);
+export function UserProfile() {
   const dispatch = useDispatch();
 
   return (
