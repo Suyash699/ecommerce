@@ -9,15 +9,16 @@ export function UserOrders() {
   const user = useSelector(selectLoggedInUser);
   const orders = useSelector(selectUserOrders);
 
-  useEffect(()=>{
-    dispatch(fetchLoggedInUserOrdersAsync(user?.id))
+ useEffect(()=>{
+    dispatch(fetchLoggedInUserOrdersAsync(user && user.id))
   },[])
+
 
   return (
     <div>
-      {orders?.map(order=><div>
-        {order?.id}
-      </div>)}
+      {orders && orders.map((order)=>(<h1 className="p-24 text-2xl" key={user.id}>
+        {order.id}
+      </h1>))}
     </div>
   );
 }

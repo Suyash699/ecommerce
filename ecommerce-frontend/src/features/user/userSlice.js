@@ -10,7 +10,6 @@ export const fetchLoggedInUserOrdersAsync = createAsyncThunk(
   "user/fetchLoggedInUserOrders",
   async (userId) => {
     const response = await fetchLoggedInUserOrders(userId);
-    console.log(response)
     return response;
   }
 );
@@ -37,7 +36,7 @@ export const userSlice = createSlice({
   },
 });
 
-export const selectUserOrders = (state) => state.user.orders;
+export const selectUserOrders = (state) => state.user.userOrders;
 
 export const { increment } = userSlice.actions;
 
